@@ -1,0 +1,23 @@
+name: Deploy to Firebase Hosting
+
+on:
+  push:
+    branches:
+      - prod   # Cambia se vuoi deploy su un altro branch
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      # Se serve, installa dipendenze e builda l'app (esempio: npm e Angular)
+      # Decommenta le seguenti 2 righe se il build produce una cartella (es. /dist)
+      # - run: npm install
+      # - run: npm run build
+
+      - uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: "${{ secrets.GITHUB_TOKEN }}"
+          firebaseServiceAccount: "${{ secrets.FIREBASE_SERVICE_ACCOUNT_TIMBRATURE_PROD }}"
+          channelId: live
